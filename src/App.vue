@@ -78,7 +78,7 @@ const shapes = [
   '32'];*/
 
 
-const Folder = 'Home'; /*'Rommelag';*/
+const Folder = 'Sport'; /*'Rommelag';*/
 
 const cards = [];
 
@@ -89,7 +89,7 @@ shapes.forEach(item => {
     matchKey: item,
     flipped: false,
     id: `${item}-a`,
-    imgUrl: `/images/shapes/${Folder}/${item}.jpg`,
+    imgUrl: `/images/${Folder}/${item}.jpg`,
     matched: false,
     order: 1,
   };
