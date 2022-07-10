@@ -21,6 +21,6 @@ yarn-error.log*
 *.sw?
 
 # ignore pictures
-/public/images
-!/public/images/example
+public/images/*
+!public/images/Sport/
 
