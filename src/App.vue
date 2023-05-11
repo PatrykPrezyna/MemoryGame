@@ -78,7 +78,7 @@ const shapes = [
   '32'];*/
 
 
-const Folder = 'Sport'; /*'Rommelag';*/
+const Folder = 'Sport';
 
 const cards = [];
 
