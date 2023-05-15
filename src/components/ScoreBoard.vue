@@ -3,7 +3,7 @@
     <div class="scoreboard__board">
       <span class="text">{{ turnCount }}</span>
       <div>
-        <span v-for="turn in score" :class="`turn turn--${turn}`" />
+        <span v-for="(turn, idx) in score" :key="idx" :class="`turn turn--${turn}`" />
       </div>
     </div>
   </div>
