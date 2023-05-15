@@ -1,20 +1,12 @@
 <template>
   <div id="app" class="app">
     <div class="toolbar">
-
-
-
-        <ScoreBoard
-      :score="score"
-      @reset="reset"
-    />
+      <ScoreBoard :score="score" @reset="reset" />
     </div>
-      <button @click="reset" class="btn">
-        Reset game
-      </button>
-    <div
-      class="grid"
-    >
+    <button @click="reset" class="btn">
+      Reset game
+    </button>
+    <div class="grid">
       <Card
         v-for="card in theCards"
         :key="card.id"
@@ -23,13 +15,12 @@
         @tapped="cardTapped"
       />
     </div>
-
   </div>
 </template>
 
 <script>
-import Card from './components/Card.vue';
-import ScoreBoard from './components/ScoreBoard.vue';
+import Card from "./components/Card.vue";
+import ScoreBoard from "./components/ScoreBoard.vue";
 
 // const animals = ['elephant', 'lion', 'fox', 'tiger', 'rabbit', 'owl'];
 
@@ -44,22 +35,23 @@ import ScoreBoard from './components/ScoreBoard.vue';
   'circle'];
 */
 const shapes = [
-  '1',
-  '2',
-  '3',
-  '4',
-  '5',
-  '6',
-  '7',
-  '8',
-  '9',
-  '10',
-  '11',
-  '12',
-  '13',
-  '14',
-  '15',
-  '16'];/*,
+  "1",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "11",
+  "12",
+  "13",
+  "14",
+  "15",
+  "16",
+]; /*,
   '17',
   '18',
   '19',
@@ -77,14 +69,11 @@ const shapes = [
   '31',
   '32'];*/
 
-
-const Folder = 'Sport';
+const Folder = "Sport";
 
 const cards = [];
 
-shapes.forEach(item => {
-
-
+shapes.forEach((item) => {
   const card = {
     matchKey: item,
     flipped: false,
@@ -101,22 +90,19 @@ shapes.forEach(item => {
   const cardB = { ...card };
   cardB.id = `${item}-b`;
   cards.push(cardB);
-
 });
 
 function shuffle(a) {
   for (let i = a.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
     [a[i], a[j]] = [a[j], a[i]];
-    a[i].order = i+1;
+    a[i].order = i + 1;
   }
   a[0].order = 1;
   return a;
 }
 
-
 function initState() {
-
   shuffle(cards);
 
   return {
@@ -133,7 +119,7 @@ function initState() {
 }
 
 export default {
-  name: 'App',
+  name: "App",
   components: {
     Card,
     ScoreBoard,
@@ -145,43 +131,43 @@ export default {
 
   computed: {
     matchCount() {
-      return this.theCards.filter(card => card.matched === true).length / 2;
+      return this.theCards.filter((card) => card.matched === true).length / 2;
     },
   },
 
   mounted() {
-    if (navigator.serviceWorker && !navigator.serviceWorker.controller) { navigator.serviceWorker.register('/serviceworker.js'); }
+    if (navigator.serviceWorker && !navigator.serviceWorker.controller) {
+      navigator.serviceWorker.register("/serviceworker.js");
+    }
   },
 
   created() {
     // attempt to use acceleromater for iOS less than 13
-    window.addEventListener('deviceorientation', this.handleOrientation);
+    window.addEventListener("deviceorientation", this.handleOrientation);
   },
 
   methods: {
     askMotionPermission() {
-      window.DeviceMotionEvent
-        .requestPermission()
-        .then(response => {
-          if (response === 'granted') {
-            window.addEventListener('deviceorientation', this.handleOrientation);
-          } else {
-            alert('OK, but you’re missing out...');
-          }
-        });
+      window.DeviceMotionEvent.requestPermission().then((response) => {
+        if (response === "granted") {
+          window.addEventListener("deviceorientation", this.handleOrientation);
+        } else {
+          alert("OK, but you’re missing out...");
+        }
+      });
     },
 
     handleOrientation(event) {
-      this.cardTransform =  `transform: rotateZ(${event.alpha}deg) rotateY(${event.beta}deg) rotateX(${event.gamma}deg)`;
+      this.cardTransform = `transform: rotateZ(${event.alpha}deg) rotateY(${event.beta}deg) rotateX(${event.gamma}deg)`;
     },
 
     incrementFlipsThisTurn() {
-      this.flipsThisTurn ++;
+      this.flipsThisTurn++;
     },
 
     cardTapped(tappedCardID) {
       // store a copy of the card data as tappedCard
-      const tappedCard = this.theCards.find(obj => obj.id === tappedCardID);
+      const tappedCard = this.theCards.find((obj) => obj.id === tappedCardID);
 
       if (tappedCard.flipped) {
         return;
@@ -192,7 +178,6 @@ export default {
 
       if (this.flipsThisTurn === 1) {
         this.runTurn1(tappedCard);
-
       }
       if (this.flipsThisTurn === 2) {
         this.runTurn2(tappedCard);
@@ -222,12 +207,15 @@ export default {
           // reset flips counter
           this.flipsThisTurn = 0;
           // update the 2 cards 'matched' prop
-          const newCards = this.theCards.map(card => ([tappedCard.id, this.firstFlipID].includes(card.id)) ? { ...card, matched: true } : card );
+          const newCards = this.theCards.map((card) =>
+            [tappedCard.id, this.firstFlipID].includes(card.id)
+              ? { ...card, matched: true }
+              : card
+          );
           this.theCards = newCards;
 
           // update score
-          this.score.push('match');
-
+          this.score.push("match");
         } else {
           // Not a match
           // Turn both cards back face down
@@ -235,17 +223,17 @@ export default {
           this.flipCard(this.firstFlipID);
           this.flipsThisTurn = 0;
           // update the score
-          this.score.push('miss');
+          this.score.push("miss");
         }
         // increment turn count
-        this.turnCount ++;
-
+        this.turnCount++;
       }, 2000);
     },
 
-
     flipCard(tappedCardID) {
-      const newCards = this.theCards.map(card => card.id === tappedCardID ? { ...card, flipped: !card.flipped } : card );
+      const newCards = this.theCards.map((card) =>
+        card.id === tappedCardID ? { ...card, flipped: !card.flipped } : card
+      );
       // update cards
       this.theCards = newCards;
     },
@@ -254,11 +242,9 @@ export default {
     },
   },
 };
-
 </script>
 
 <style lang="scss">
-
 body {
   background: #222222; //$c-gray-dark;
   color: red; //$c-red;
@@ -293,8 +279,6 @@ body {
   background-color: white;
 }
 
-
-
 .app {
   margin: 0;
   padding: 20px;
@@ -319,6 +303,4 @@ body {
   // width: 100%;
   // height: 100%;
 }
-
-
 </style>
