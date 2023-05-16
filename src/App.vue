@@ -22,63 +22,19 @@
 import Card from "./components/Card.vue";
 import ScoreBoard from "./components/ScoreBoard.vue";
 
-// const animals = ['elephant', 'lion', 'fox', 'tiger', 'rabbit', 'owl'];
-
-/*const shapes = [
-  'triangle',
-  'star',
-  'rhombus',
-  'square',
-  'pentagon',
-  'hexagon',
-  'oval',
-  'circle'];
-*/
-const shapes = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "10",
-  "11",
-  "12",
-  "13",
-  "14",
-  "15",
-  "16",
-]; /*,
-  '17',
-  '18',
-  '19',
-  '20',
-  '21',
-  '22',
-  '23',
-  '24',
-  '25',
-  '26',
-  '27',
-  '28',
-  '29',
-  '30',
-  '31',
-  '32'];*/
-
-const Folder = "Sport";
+const NumberOfCards = 16;
+const cardImageFileNames = [...Array(NumberOfCards).keys()].map((i) =>
+  String(i + 1)
+);
+const folder = "Sport";
 
 const cards = [];
-
-shapes.forEach((item) => {
+cardImageFileNames.forEach((image) => {
   const card = {
-    matchKey: item,
+    matchKey: image,
     flipped: false,
-    id: `${item}-a`,
-    imgUrl: `/images/${Folder}/${item}.jpg`,
+    id: `${image}-a`,
+    imgUrl: `/images/${folder}/${image}.jpg`,
     matched: false,
     order: 1,
   };
@@ -88,7 +44,7 @@ shapes.forEach((item) => {
   cards.push(cardA);
   // second copy
   const cardB = { ...card };
-  cardB.id = `${item}-b`;
+  cardB.id = `${image}-b`;
   cards.push(cardB);
 });
 
@@ -297,10 +253,5 @@ body {
   grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr; // 1fr 1fr; // 1fr 1fr; // 1fr 1fr;
   width: calc(100vw - 80px);
   height: calc(100vh - 100px);
-}
-
-.grid__cell {
-  // width: 100%;
-  // height: 100%;
 }
 </style>
