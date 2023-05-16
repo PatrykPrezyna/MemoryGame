@@ -1,29 +1,21 @@
 <template>
-<div>
-  <div
-    :class="cardClasses"
-    @click="tap"
-    :style="cardTransform"
-  >
-    <div class="card__inner">
-      <div class="card__front">
-        <h2 style="color:white;align:top">{{card.order}}</h2>
+  <div>
+    <div :class="cardClasses" @click="tap" :style="cardTransform">
+      <div class="card__inner">
+        <div class="card__front">
+          <h2 style="color:white;align:top">{{ card.order }}</h2>
         </div>
-      <div
-        :data-matchkey="card.matchKey"
-        class="card__back"
-      >
-        <img :src="`${card.imgUrl}`" class="card__img">
+        <div :data-matchkey="card.matchKey" class="card__back">
+          <img :src="`${card.imgUrl}`" class="card__img" />
+        </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'Card',
+  name: "Card",
   props: {
     card: {
       type: Object,
@@ -31,9 +23,8 @@ export default {
     },
     cardTransform: {
       type: String,
-      default: () => '',
+      default: () => "",
     },
-
   },
 
   data() {
@@ -47,18 +38,17 @@ export default {
   },
 
   computed: {
-
     cardClasses() {
-      return  {
-        'card': true,
-        'card--flipped': this.card.flipped,
-        'card--matched': this.card.matched,
+      return {
+        card: true,
+        "card--flipped": this.card.flipped,
+        "card--matched": this.card.matched,
       };
     },
   },
 
   created() {
-    window.addEventListener( 'deviceorientation', this.onDeviceTilt, false );
+    window.addEventListener("deviceorientation", this.onDeviceTilt, false);
   },
   methods: {
     onDeviceTilt(event) {
@@ -66,11 +56,10 @@ export default {
       this.orientation.alpha = event.alpha;
       this.orientation.beta = event.beta;
       this.orientation.gamma = event.gamma;
-
     },
     tap() {
       // eslint-disable-next-line
-      this.$emit('tapped', this.card.id);
+      this.$emit("tapped", this.card.id);
     },
     randomFromRange(min, max) {
       return Math.floor(Math.random() * (max - min + 1) + min);
@@ -116,7 +105,6 @@ export default {
 }
 
 .card__inner,
-.card__front,
 .card__back {
   border-radius: 5px;
   width: 100%;
@@ -156,12 +144,11 @@ export default {
 }
 
 .card__front {
-  background: linear-gradient(45deg, rgb(0, 66, 37), rgb(0,66, 37));
+  background: linear-gradient(45deg, rgb(0, 66, 37), rgb(4, 0, 66));
   z-index: 2;
 }
 
 .card__back {
   transform: rotateY(180deg);
 }
-
 </style>

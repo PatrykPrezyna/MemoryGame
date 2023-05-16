@@ -3,16 +3,19 @@
     <div class="scoreboard__board">
       <span class="text">{{ turnCount }}</span>
       <div>
-        <span v-for="turn in score" :class="`turn turn--${turn}`" />
+        <span
+          v-for="(turn, idx) in score"
+          :key="idx"
+          :class="`turn turn--${turn}`"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
-
 export default {
-  name: 'ScoreBoard',
+  name: "ScoreBoard",
   props: {
     score: {
       type: Array,
@@ -22,20 +25,16 @@ export default {
 
   computed: {
     matchCount() {
-      return this.score.filter(turn => turn === 'match').length;
+      return this.score.filter((turn) => turn === "match").length;
     },
     turnCount() {
       return this.score.length;
     },
   },
-
-
 };
-
 </script>
 
 <style lang="scss" scoped>
-
 * {
   box-sizing: border-box;
   margin: 0;
@@ -56,8 +55,8 @@ export default {
   min-height: 40px;
   position: fixed;
   padding: 15px 20px;
-  top:0;
-  left:0;
+  top: 0;
+  left: 0;
   width: 100%;
 
   @media (min-width: 700px) {
@@ -79,6 +78,6 @@ export default {
 }
 
 .turn--match {
-  background: rgb(30,255,255);
+  background: rgb(30, 255, 255);
 }
 </style>
