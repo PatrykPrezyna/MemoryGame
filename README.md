@@ -40,4 +40,4 @@ Either delete .browserslistrc file or delete field "browserslist" in package.jso
 
 # How to add yout own picutes
 
-Create dictionary within 
+Create dictionary within ...
