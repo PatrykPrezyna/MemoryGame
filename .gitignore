@@ -23,4 +23,5 @@ yarn-error.log*
 # ignore pictures
 public/images/*
 !public/images/Sport/
+!public/images/Homev3/
 
